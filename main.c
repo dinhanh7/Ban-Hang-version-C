@@ -1,6 +1,11 @@
 #include "Hanghoa.h"
 #include "GioHang.h"
 #include <stdio.h>
+/*Neu chinh sua lai code, can xoa file program.exe, sau do:
+Mo terminal, chay lenh: gcc -o program main.c Hanghoa.c GioHang.c
+de he thong tao lai file programe.exe moi
+*/
+//De chay chuong trinh, mo terminal va go lenh: ./program
 
 void inDanhSachSanPham(Hanghoa* san_pham, int size);
 void themSanPham(Hanghoa** san_pham, int* size);
