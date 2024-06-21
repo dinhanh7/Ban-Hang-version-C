@@ -10,7 +10,7 @@ typedef struct {
     double phanTramGiamGia;
 } GioHang;
 
-// Các hàm liên quan đến GioHang
+
 void GioHang_init(GioHang* self);
 void GioHang_them_san_pham(GioHang* self, Hanghoa sanPham);
 void GioHang_xoa_san_pham(GioHang* self, int index);

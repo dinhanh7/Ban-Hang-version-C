@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Định nghĩa cấu trúc Hanghoa
 typedef struct {
     char san_pham[100];
     char ma_san_pham[20];
@@ -13,7 +12,6 @@ typedef struct {
     int so_luong;
 } Hanghoa;
 
-// Các hàm liên quan đến Hanghoa
 void Hanghoa_init(Hanghoa* self);
 void Hanghoa_init_with_details(Hanghoa* self, const char* sanPham, const char* maSanPham, double giaThanh, int soLuong);
 void Hanghoa_nhap(Hanghoa* self);

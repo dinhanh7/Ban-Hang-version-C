@@ -17,11 +17,11 @@ int main() {
     GioHang gioHang;
     GioHang_init(&gioHang);
 
-    // Menu ch�nh
+    // Menu chinh
     giaoDienChinhSua(san_pham, &size);
     giaoDienThanhToan(san_pham, size, &gioHang);
 
-    // Gi?i ph�ng b? nh?
+
     free(san_pham);
     GioHang_free(&gioHang);
 
@@ -86,7 +86,9 @@ void sapXepTheoGia(Hanghoa* san_pham, int size) {
 }
 
 void timKiemTheoMaSanPham(Hanghoa* san_pham, int size) {
+    timkiem:
     char ma[20];
+    int isExist = 0;
     printf("Nhap ma san pham muon tim: ");
     getchar();
     fgets(ma, sizeof(ma), stdin);
@@ -95,10 +97,19 @@ void timKiemTheoMaSanPham(Hanghoa* san_pham, int size) {
     for (int i = 0; i < size; i++) {
         if (strcmp(san_pham[i].ma_san_pham, ma) == 0) {
             Hanghoa_xuat(&san_pham[i]);
-            return;
+            isExist = 1;
+            break;
         }
     }
-    printf("Khong tim thay san pham co ma %s.\n", ma);
+    if(!isExist){
+        printf("Khong tim thay san pham voi ma da nhap\n");
+    }
+    char lc;
+    printf("Ban co muon tiep tuc tim khong (y/n) ?  ");
+    scanf("%c",&lc);
+    if(lc == 'y'){
+        goto timkiem;
+    }
 }
 
 void giaoDienChinhSua(Hanghoa* san_pham, int* size) {

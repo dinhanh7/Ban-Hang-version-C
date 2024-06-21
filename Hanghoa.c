@@ -15,17 +15,17 @@ void Hanghoa_init_with_details(Hanghoa* self, const char* sanPham, const char* m
 }
 
 void Hanghoa_nhap(Hanghoa* self) {
-    printf("Nhap thong tin san pham: ");
-    printf("\nNhap ten san pham: ");
+    printf("Hay nhap cac thong tin sau cua san pham\n");
+    printf("Nhap ten san pham: ");
     getchar();
     fgets(self->san_pham, sizeof(self->san_pham), stdin);
-    strtok(self->san_pham, "\n"); // Lo?i b? ký t? xu?ng dòng
-    printf("\nNhap ma san pham: ");
+    strtok(self->san_pham, "\n"); // Loai bo ki tu xuong dong
+    printf("Nhap ma san pham: ");
     fgets(self->ma_san_pham, sizeof(self->ma_san_pham), stdin);
     strtok(self->ma_san_pham, "\n");
-    printf("\nNhap gia thanh san pham: ");
+    printf("Nhap gia thanh san pham: ");
     scanf("%lf", &self->gia_thanh);
-    printf("\nNhap so luong san pham: ");
+    printf("Nhap so luong san pham: ");
     scanf("%d", &self->so_luong);
 }
 
