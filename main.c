@@ -132,15 +132,18 @@ void timKiemTheoMaSanPham(Hanghoa* san_pham, int size) {
 void giaoDienChinhSua(Hanghoa* san_pham, int* size) {
     int choice;
     do {
-        printf("\n1. Them san pham");
-        printf("\n2. Xoa san pham");
-        printf("\n3. Sua san pham");
-        printf("\n4. Sap xep theo gia");
-        printf("\n5. Tim kiem theo ma san pham");
-        printf("\n6. Tim kiem theo ten san pham");
-        printf("\n7. Hien thi tat ca san pham");
-        printf("\n8. Gio hang");
-        printf("\nNhap lua chon cua ban: ");
+    printf("\n---------------------------------------------");
+    printf("\n| 1. Them san pham                          |");
+    printf("\n| 2. Xoa san pham                           |");
+    printf("\n| 3. Sua san pham                           |");
+    printf("\n| 4. Sap xep theo gia                       |");
+    printf("\n| 5. Tim kiem theo ma san pham              |");
+    printf("\n| 6. Tim kiem theo ten san pham             |");
+    printf("\n| 7. Hien thi tat ca san pham               |");
+    printf("\n| 8. Gio hang                               |");
+    printf("\n|                                           |");
+    printf("\n| Nhap lua chon cua ban:                    |");
+    printf("\n---------------------------------------------\n");
         scanf("%d", &choice);
         switch (choice) {
             case 1:
@@ -176,15 +179,19 @@ void giaoDienChinhSua(Hanghoa* san_pham, int* size) {
 void giaoDienThanhToan(Hanghoa* san_pham, int size, GioHang* gioHang) {
     int choice;
     do {
-        printf("\n1. Them san pham vao gio hang bang vi tri");
-        printf("\n2. Them san pham vao gio hang bang ma san pham");
-        printf("\n3. Them san pham vao gio hang bang ten san pham");
-        printf("\n4. Xoa san pham khoi gio hang");
-        printf("\n5. Ap ma giam gia");
-        printf("\n6. Hien thi gio hang");
-        printf("\n7. Thanh toan");
-        printf("\n0. Thoat");
-        printf("\nNhap lua chon cua ban: ");
+    printf("\n____________________________________________________");
+    printf("\n|                                                  |");
+    printf("\n| 1. Them san pham vao gio hang bang vi tri        |");
+    printf("\n| 2. Them san pham vao gio hang bang ma san pham   |");
+    printf("\n| 3. Them san pham vao gio hang bang ten san pham  |");
+    printf("\n| 4. Xoa san pham khoi gio hang                    |");
+    printf("\n| 5. Ap ma giam gia                                |");
+    printf("\n| 6. Hien thi gio hang                             |");
+    printf("\n| 7. Thanh toan                                    |");
+    printf("\n| 0. Thoat                                         |");
+    printf("\n|                                                  |");
+    printf("\n| Nhap lua chon cua ban:                           |");
+    printf("\n____________________________________________________\n");
         scanf("%d", &choice);
         switch (choice) {
             case 1: {
