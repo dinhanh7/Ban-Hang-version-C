@@ -15,23 +15,32 @@ void sapXepTheoGia(Hanghoa* san_pham, int size);
 void timKiemTheoMaSanPham(Hanghoa* san_pham, int size);
 void giaoDienChinhSua(Hanghoa* san_pham, int* size);
 void giaoDienThanhToan(Hanghoa* san_pham, int size, GioHang* quay_thanh_toan);
+void timKiemTheoTenSanPham(Hanghoa* san_pham, int size);
+void docFileSanPham(const char* filename, Hanghoa** san_pham, int* size);
 
 int main() {
     Hanghoa* san_pham = NULL;
     int size = 0;
     GioHang gioHang;
-    GioHang_init(&gioHang);
+    GioHang_tao(&gioHang);
 
-    // Menu chinh
-    giaoDienChinhSua(san_pham, &size);
-    giaoDienThanhToan(san_pham, size, &gioHang);
+    // Đọc file sản phẩm từ đường dẫn cụ thể
+    const char* filePath = "C:\\Users\\WINDOWS\\OneDrive - Hanoi University of Science and Technology\\Desktop\\giay.txt";
+    docFileSanPham(filePath, &san_pham, &size);
 
+    // Menu chính
+    while (1) {
+        giaoDienChinhSua(san_pham, &size);
+        giaoDienThanhToan(san_pham, size, &gioHang);
 
-    free(san_pham);
-    GioHang_free(&gioHang);
-
+        free(san_pham);
+        GioHang_free(&gioHang);
+        system("cls");
+    }
     return 0;
 }
+
+
 
 void inDanhSachSanPham(Hanghoa* san_pham, int size) {
     if (size == 0) {
@@ -125,7 +134,9 @@ void giaoDienChinhSua(Hanghoa* san_pham, int* size) {
         printf("\n3. Sua san pham");
         printf("\n4. Sap xep theo gia");
         printf("\n5. Tim kiem theo ma san pham");
-        printf("\n0. Thoat");
+        printf("\n6. Tim kiem theo ten san pham");
+        printf("\n7. Hien thi tat ca san pham");
+        printf("\n8. Gio hang");
         printf("\nNhap lua chon cua ban: ");
         scanf("%d", &choice);
         switch (choice) {
@@ -144,7 +155,13 @@ void giaoDienChinhSua(Hanghoa* san_pham, int* size) {
             case 5:
                 timKiemTheoMaSanPham(san_pham, *size);
                 break;
-            case 0:
+            case 6:
+                timKiemTheoTenSanPham(san_pham, *size);
+                break;
+            case 7:
+                inDanhSachSanPham(san_pham, *size);
+                break;
+            case 8:
                 return;
             default:
                 printf("Lua chon khong hop le!\n");
@@ -152,6 +169,7 @@ void giaoDienChinhSua(Hanghoa* san_pham, int* size) {
         }
     } while (1);
 }
+
 
 void giaoDienThanhToan(Hanghoa* san_pham, int size, GioHang* gioHang) {
     int choice;
@@ -201,3 +219,37 @@ void giaoDienThanhToan(Hanghoa* san_pham, int size, GioHang* gioHang) {
     } while (1);
 }
 
+void timKiemTheoTenSanPham(Hanghoa* san_pham, int size) {
+    char ten[100];
+    int isExist = 0;
+    printf("Nhap ten san pham muon tim: ");
+    getchar(); // Clear newline character from the buffer
+    fgets(ten, sizeof(ten), stdin);
+    strtok(ten, "\n"); // Remove newline character
+
+    for (int i = 0; i < size; i++) {
+        if (strstr(san_pham[i].san_pham, ten) != NULL) {
+            Hanghoa_xuat(&san_pham[i]);
+            isExist = 1;
+        }
+    }
+    if (!isExist) {
+        printf("Khong tim thay san pham voi ten da nhap\n");
+    }
+}
+void docFileSanPham(const char* filename, Hanghoa** san_pham, int* size) {
+    FILE* file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("Khong the mo file %s\n", filename);
+        return;
+    }
+
+    Hanghoa temp;
+    while (fscanf(file, "%[^,],%[^,],%lf,%d\n", temp.ma_san_pham, temp.san_pham, &temp.gia_thanh, &temp.so_luong) == 4) {
+        (*size)++;
+        *san_pham = realloc(*san_pham, (*size) * sizeof(Hanghoa));
+        (*san_pham)[*size - 1] = temp;
+    }
+
+    fclose(file);
+}

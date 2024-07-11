@@ -1,67 +1,67 @@
 #include "Hanghoa.h"
 
-void Hanghoa_init(Hanghoa* self) {
-    strcpy(self->san_pham, "");
-    strcpy(self->ma_san_pham, "");
-    self->gia_thanh = 0.0;
-    self->so_luong = 0;
+void Hanghoa_tao(Hanghoa* sp) {
+    strcpy(sp->san_pham, "");
+    strcpy(sp->ma_san_pham, "");
+    sp->gia_thanh = 0.0;
+    sp->so_luong = 0;
 }
 
-void Hanghoa_init_with_details(Hanghoa* self, const char* sanPham, const char* maSanPham, double giaThanh, int soLuong) {
-    strcpy(self->san_pham, sanPham);
-    strcpy(self->ma_san_pham, maSanPham);
-    self->gia_thanh = giaThanh;
-    self->so_luong = soLuong;
+void Hanghoa_tao_san_pham(Hanghoa* sp , const char* sanPham, const char* maSanPham, double giaThanh, int soLuong) {
+    strcpy(sp->san_pham, sanPham);
+    strcpy(sp->ma_san_pham, maSanPham);
+    sp->gia_thanh = giaThanh;
+    sp->so_luong = soLuong;
 }
 
-void Hanghoa_nhap(Hanghoa* self) {
+void Hanghoa_nhap(Hanghoa* sp) {
     printf("Hay nhap cac thong tin sau cua san pham\n");
     printf("Nhap ten san pham: ");
     getchar();
-    fgets(self->san_pham, sizeof(self->san_pham), stdin);
-    strtok(self->san_pham, "\n"); // Loai bo ki tu xuong dong
+    fgets(sp->san_pham, sizeof(sp->san_pham), stdin);
+    strtok(sp->san_pham, "\n"); // Loai bo ki tu xuong dong
     printf("Nhap ma san pham: ");
-    fgets(self->ma_san_pham, sizeof(self->ma_san_pham), stdin);
-    strtok(self->ma_san_pham, "\n");
+    fgets(sp->ma_san_pham, sizeof(sp->ma_san_pham), stdin);
+    strtok(sp->ma_san_pham, "\n");
     printf("Nhap gia thanh san pham: ");
-    scanf("%lf", &self->gia_thanh);
+    scanf("%lf", &sp->gia_thanh);
     printf("Nhap so luong san pham: ");
-    scanf("%d", &self->so_luong);
+    scanf("%d", &sp->so_luong);
 }
 
-void Hanghoa_xuat(const Hanghoa* self) {
-    printf("%s    %s     %.2lf VND     x%d\n", self->san_pham, self->ma_san_pham, self->gia_thanh, self->so_luong);
+void Hanghoa_xuat(const Hanghoa* sp) {
+    printf("%s    %s     %.2lf VND     x%d\n", sp->san_pham, sp->ma_san_pham, sp->gia_thanh, sp->so_luong);
 }
 
-void Hanghoa_set_tensp(Hanghoa* self, const char* tensp) {
-    strcpy(self->san_pham, tensp);
+void Hanghoa_set_tensp(Hanghoa* sp, const char* tensp) {
+    strcpy(sp->san_pham, tensp);
 }
 
-void Hanghoa_set_masp(Hanghoa* self, const char* ma) {
-    strcpy(self->ma_san_pham, ma);
+void Hanghoa_set_masp(Hanghoa* sp, const char* ma) {
+    strcpy(sp->ma_san_pham, ma);
 }
 
-void Hanghoa_set_giasp(Hanghoa* self, double gia) {
-    self->gia_thanh = gia;
+void Hanghoa_set_giasp(Hanghoa* sp, double gia) {
+    sp->gia_thanh = gia;
 }
 
-void Hanghoa_set_so_luong(Hanghoa* self, int soLuong) {
-    self->so_luong = soLuong;
+void Hanghoa_set_so_luong(Hanghoa* sp, int soLuong) {
+    sp->so_luong = soLuong;
 }
 
-double Hanghoa_lay_gia_thanh(const Hanghoa* self) {
-    return self->gia_thanh;
+double Hanghoa_lay_gia_thanh(const Hanghoa* sp) {
+    return sp->gia_thanh;
 }
 
-const char* Hanghoa_lay_ten_san_pham(const Hanghoa* self) {
-    return self->san_pham;
+const char* Hanghoa_lay_ten_san_pham(const Hanghoa* sp) {
+    return sp->san_pham;
 }
 
-const char* Hanghoa_lay_ma_don_hang(const Hanghoa* self) {
-    return self->ma_san_pham;
+const char* Hanghoa_lay_ma_don_hang(const Hanghoa* sp) {
+    return sp->ma_san_pham;
 }
 
-int Hanghoa_lay_so_luong(const Hanghoa* self) {
-    return self->so_luong;
+int Hanghoa_lay_so_luong(const Hanghoa* sp) {
+    return sp->so_luong;
 }
 
