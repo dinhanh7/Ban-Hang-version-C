@@ -17,6 +17,9 @@ void giaoDienChinhSua(Hanghoa* san_pham, int* size);
 void giaoDienThanhToan(Hanghoa* san_pham, int size, GioHang* quay_thanh_toan);
 void timKiemTheoTenSanPham(Hanghoa* san_pham, int size);
 void docFileSanPham(const char* filename, Hanghoa** san_pham, int* size);
+void themSanPhamVaoGioHangBangMa(GioHang* gioHang, Hanghoa* san_pham, int size);
+void themSanPhamVaoGioHangBangTen(GioHang* gioHang, Hanghoa* san_pham, int size);
+
 
 int main() {
     Hanghoa* san_pham = NULL;
@@ -170,44 +173,60 @@ void giaoDienChinhSua(Hanghoa* san_pham, int* size) {
     } while (1);
 }
 
-
 void giaoDienThanhToan(Hanghoa* san_pham, int size, GioHang* gioHang) {
     int choice;
     do {
-        printf("\n1. Them san pham vao gio hang");
-        printf("\n2. Xoa san pham khoi gio hang");
-        printf("\n3. Ap ma giam gia");
-        printf("\n4. Thanh toan");
+        printf("\n1. Them san pham vao gio hang bang vi tri");
+        printf("\n2. Them san pham vao gio hang bang ma san pham");
+        printf("\n3. Them san pham vao gio hang bang ten san pham");
+        printf("\n4. Xoa san pham khoi gio hang");
+        printf("\n5. Ap ma giam gia");
+        printf("\n6. Hien thi gio hang");
+        printf("\n7. Thanh toan");
         printf("\n0. Thoat");
         printf("\nNhap lua chon cua ban: ");
         scanf("%d", &choice);
         switch (choice) {
             case 1: {
-                int index;
+                int index, soLuong;
                 printf("Nhap vi tri san pham muon them: ");
                 scanf("%d", &index);
+                printf("Nhap so luong: ");
+                scanf("%d", &soLuong);
                 if (index < 1 || index > size) {
                     printf("Vi tri khong hop le!\n");
                 } else {
-                    GioHang_them_san_pham(gioHang, san_pham[index - 1]);
+                    GioHang_them_san_pham(gioHang, san_pham[index - 1], soLuong);
+                    GioHang_in_gio_hang(gioHang);
                 }
                 break;
             }
-            case 2: {
+            case 2:
+                themSanPhamVaoGioHangBangMa(gioHang, san_pham, size);
+                break;
+            case 3:
+                themSanPhamVaoGioHangBangTen(gioHang, san_pham, size);
+                break;
+            case 4: {
                 int index;
                 printf("Nhap vi tri san pham muon xoa: ");
                 scanf("%d", &index);
                 GioHang_xoa_san_pham(gioHang, index - 1);
+                GioHang_in_gio_hang(gioHang);
                 break;
             }
-            case 3: {
+            case 5: {
                 double giamGia;
                 printf("Nhap phan tram giam gia: ");
                 scanf("%lf", &giamGia);
                 GioHang_ap_ma_giam_gia(gioHang, giamGia);
+                GioHang_in_gio_hang(gioHang);
                 break;
             }
-            case 4:
+            case 6:
+                GioHang_in_gio_hang(gioHang);
+                break;
+            case 7:
                 GioHang_thanh_toan(gioHang);
                 break;
             case 0:
@@ -223,20 +242,21 @@ void timKiemTheoTenSanPham(Hanghoa* san_pham, int size) {
     char ten[100];
     int isExist = 0;
     printf("Nhap ten san pham muon tim: ");
-    getchar(); // Clear newline character from the buffer
+    getchar();
     fgets(ten, sizeof(ten), stdin);
-    strtok(ten, "\n"); // Remove newline character
+    strtok(ten, "\n");
 
     for (int i = 0; i < size; i++) {
-        if (strstr(san_pham[i].san_pham, ten) != NULL) {
+        if (strcmp(san_pham[i].san_pham, ten) == 0) {
             Hanghoa_xuat(&san_pham[i]);
             isExist = 1;
         }
     }
-    if (!isExist) {
+    if(!isExist){
         printf("Khong tim thay san pham voi ten da nhap\n");
     }
 }
+
 void docFileSanPham(const char* filename, Hanghoa** san_pham, int* size) {
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
@@ -252,4 +272,54 @@ void docFileSanPham(const char* filename, Hanghoa** san_pham, int* size) {
     }
 
     fclose(file);
+}
+void themSanPhamVaoGioHangBangMa(GioHang* gioHang, Hanghoa* san_pham, int size) {
+    char ma[20];
+    int soLuong;
+    int isExist = 0;
+    printf("Nhap ma san pham muon them vao gio hang: ");
+    getchar();
+    fgets(ma, sizeof(ma), stdin);
+    strtok(ma, "\n");
+    printf("Nhap so luong: ");
+    scanf("%d", &soLuong);
+
+    for (int i = 0; i < size; i++) {
+        if (strcmp(san_pham[i].ma_san_pham, ma) == 0) {
+            GioHang_them_san_pham(gioHang, san_pham[i], soLuong);
+            printf("Da them %d %s vao gio hang.\n", soLuong, san_pham[i].san_pham);
+            isExist = 1;
+            GioHang_in_gio_hang(gioHang);
+            break;
+        }
+    }
+    if (!isExist) {
+        printf("Khong tim thay san pham voi ma da nhap\n");
+    }
+}
+
+
+void themSanPhamVaoGioHangBangTen(GioHang* gioHang, Hanghoa* san_pham, int size) {
+    char ten[100];
+    int soLuong;
+    int isExist = 0;
+    printf("Nhap ten san pham muon them vao gio hang: ");
+    getchar();
+    fgets(ten, sizeof(ten), stdin);
+    strtok(ten, "\n");
+    printf("Nhap so luong: ");
+    scanf("%d", &soLuong);
+
+    for (int i = 0; i < size; i++) {
+        if (strcmp(san_pham[i].san_pham, ten) == 0) {
+            GioHang_them_san_pham(gioHang, san_pham[i], soLuong);
+            printf("Da them %d %s vao gio hang.\n", soLuong, san_pham[i].san_pham);
+            isExist = 1;
+            GioHang_in_gio_hang(gioHang);
+            break;
+        }
+    }
+    if (!isExist) {
+        printf("Khong tim thay san pham voi ten da nhap\n");
+    }
 }

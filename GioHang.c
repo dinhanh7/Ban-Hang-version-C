@@ -7,12 +7,15 @@ void GioHang_tao(GioHang* sp) {
     sp->phanTramGiamGia = 0.0;
 }
 
-void GioHang_them_san_pham(GioHang* sp, Hanghoa sanPham) {
+void GioHang_them_san_pham(GioHang* sp, Hanghoa sanPham, int soLuong) {
+    sanPham.so_luong = soLuong;
     sp->gioHang = realloc(sp->gioHang, (sp->soLuongHang + 1) * sizeof(Hanghoa));
     sp->gioHang[sp->soLuongHang] = sanPham;
     sp->soLuongHang++;
     GioHang_cap_nhat_tien_thanh_toan(sp);
 }
+
+
 
 void GioHang_xoa_san_pham(GioHang* sp, int index) {
     if (index < 0 || index >= sp->soLuongHang) return;

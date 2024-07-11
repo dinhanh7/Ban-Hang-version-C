@@ -12,7 +12,7 @@ typedef struct {
 
 
 void GioHang_tao(GioHang* sp);
-void GioHang_them_san_pham(GioHang* sp, Hanghoa sanPham);
+void GioHang_them_san_pham(GioHang* sp, Hanghoa sanPham, int soLuong);
 void GioHang_xoa_san_pham(GioHang* sp, int index);
 void GioHang_in_gio_hang(const GioHang* sp);
 void GioHang_ap_ma_giam_gia(GioHang* sp, double phanTram);
